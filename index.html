@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Evolution of Dudeng Daga</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
       margin: 0;
@@ -14,36 +13,30 @@
       color: white;
       text-align: center;
     }
-
     h1 {
       margin-top: 30px;
       color: #ff2d2d;
       text-shadow: 0 0 15px red;
     }
-
     #stage {
       margin-top: 30px;
       opacity: 0;
       transform: scale(0.6);
       transition: all 0.6s ease;
     }
-
     #stage.show {
       opacity: 1;
       transform: scale(1);
     }
-
     #stage img {
       width: 240px;
       border-radius: 12px;
       box-shadow: 0 0 25px red;
     }
-
     #caption {
       margin-top: 15px;
       font-size: 1.3rem;
     }
-
     button {
       margin-top: 30px;
       padding: 14px 26px;
@@ -54,7 +47,6 @@
       background: #ff2d2d;
       color: white;
     }
-
     button:hover {
       background: #ff5555;
     }
@@ -65,39 +57,52 @@
   <h1>🧬 Evolution of Dudeng Daga</h1>
 
   <div id="stage">
-    <img id="stageImg" src="" alt="Evolution stage">
+    <img id="stageImg" src="" alt="Evolution stage" />
     <div id="caption"></div>
   </div>
 
-  <button onclick="nextStage()">Start Evolution</button>
+  <button id="nextBtn">Start Evolution</button>
 
   <script>
     const stages = [
-      { img: "evol.jfif", text: "Stage 1: Dudeng (First Form) 🐁" },
-      { img: "evoll.jfif", text: "Stage 2: DUDENG DAGA (Final Form) 🔥" }
+      {
+        img: "https://raw.githubusercontent.com/Supremoooooooooooooooooooooooooooooo/triplang/main/evol.jfif",
+        text: "Stage 1: Dudeng (First Form) 🐁"
+      },
+      {
+        img: "https://raw.githubusercontent.com/Supremoooooooooooooooooooooooooooooo/triplang/main/evoll.jfif",
+        text: "Stage 2: DUDENG DAGA (Final Form) 🔥"
+      }
     ];
 
     let current = -1;
 
-    function nextStage() {
-      current++;
+    const imgElement = document.getElementById("stageImg");
+    const captionElement = document.getElementById("caption");
+    const stageDiv = document.getElementById("stage");
+    const nextBtn = document.getElementById("nextBtn");
 
+    nextBtn.addEventListener("click", () => {
+      current++;
       if (current >= stages.length) {
         current = stages.length - 1;
         return;
       }
 
-      const stage = document.getElementById("stage");
-      const img = document.getElementById("stageImg");
-      const caption = document.getElementById("caption");
+      imgElement.src = stages[current].img;
+      captionElement.textContent = stages[current].text;
+      console.log("Loading image:", imgElement.src);
 
-      img.src = stages[current].img;
-      caption.textContent = stages[current].text;
+      // Animate fade-in
+      stageDiv.classList.remove("show");
+      void stageDiv.offsetWidth; // trigger reflow to restart animation
+      stageDiv.classList.add("show");
 
-      stage.classList.remove("show");
-      void stage.offsetWidth; // reset animation
-      stage.classList.add("show");
-    }
+      // Change button text after first click
+      if (current === 0) {
+        nextBtn.textContent = "Next Evolution Stage";
+      }
+    });
   </script>
 
 </body>
