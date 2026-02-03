@@ -1,67 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Important Announcement</title>
+  <meta charset="UTF-8">
+  <title>Evolution of Dudeng Daga</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      background: radial-gradient(circle, #111, #000);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Comic Sans MS', 'Arial', sans-serif;
-      overflow: hidden;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #000, #111);
+      font-family: Arial, sans-serif;
       color: white;
-    }
-
-    #container {
       text-align: center;
     }
 
-    #intro {
-      font-size: 2rem;
-      opacity: 0;
-      animation: fadeIn 2s forwards;
-    }
-
-    #name {
-      font-size: 4rem;
-      margin-top: 20px;
+    h1 {
+      margin-top: 30px;
       color: #ff2d2d;
-      text-shadow: 0 0 20px red;
+      text-shadow: 0 0 15px red;
+    }
+
+    #stage {
+      margin-top: 30px;
       opacity: 0;
-      transform: scale(0.5);
+      transform: scale(0.6);
+      transition: all 0.6s ease;
     }
 
-    .show {
-      animation: pop 0.8s forwards, shake 0.4s infinite;
+    #stage.show {
+      opacity: 1;
+      transform: scale(1);
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    #stage img {
+      width: 240px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px red;
     }
 
-    @keyframes pop {
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes shake {
-      0% { transform: translate(1px, 1px); }
-      25% { transform: translate(-1px, -2px); }
-      50% { transform: translate(-3px, 0px); }
-      75% { transform: translate(3px, 2px); }
-      100% { transform: translate(1px, -1px); }
+    #caption {
+      margin-top: 15px;
+      font-size: 1.3rem;
     }
 
     button {
       margin-top: 30px;
-      padding: 12px 24px;
+      padding: 14px 26px;
       font-size: 1.1rem;
       cursor: pointer;
       border: none;
@@ -76,17 +61,44 @@
   </style>
 </head>
 <body>
-  <div id="container">
-    <div id="intro">⚠️ Please click the button for an important message</div>
-    <button onclick="reveal()">Reveal</button>
-    <div id="name">DUDENG DAGA</div>
+
+  <h1>🧬 Evolution of Dudeng Daga</h1>
+
+  <div id="stage">
+    <img id="stageImg" src="" alt="Evolution stage">
+    <div id="caption"></div>
   </div>
 
+  <button onclick="nextStage()">Start Evolution</button>
+
   <script>
-    function reveal() {
-      const name = document.getElementById("name");
-      name.classList.add("show");
+    const stages = [
+      { img: "evol.jfif", text: "Stage 1: Dudeng (Prototype) 🧪" },
+      { img: "evoll.jfif", text: "Stage 2: DUDENG DAGA (FINAL FORM) 🔥" }
+    ];
+
+    let current = -1;
+
+    function nextStage() {
+      current++;
+
+      if (current >= stages.length) {
+        current = stages.length - 1;
+        return;
+      }
+
+      const stage = document.getElementById("stage");
+      const img = document.getElementById("stageImg");
+      const caption = document.getElementById("caption");
+
+      img.src = stages[current].img;
+      caption.textContent = stages[current].text;
+
+      stage.classList.remove("show");
+      void stage.offsetWidth; // reset animation
+      stage.classList.add("show");
     }
   </script>
+
 </body>
 </html>
